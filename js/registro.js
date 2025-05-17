@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const form = document.getElementById('usuriosForm');
+    const form = document.getElementById('usuariosForm');
     const mensajeDiv = document.getElementById('mensaje');
 
     form.addEventListener('submit', async (e) => {
@@ -37,8 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const data = await response.json();
 
-            if (response.ok) {
-                mostrarMensaje(data.mensaje || 'Usuario registrado correctamente.', 'success');
+            if (response.ok) { 
                 window.location.href = 'login.html';
             } else {
                 mostrarMensaje(data.error || 'Ocurrió un error al registrar.', 'error');

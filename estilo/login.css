@@ -39,8 +39,7 @@ body {
 .volver-button:hover {
   background-color: #019f78;
 }
-
-/* Estilo del formulario */
+ 
 .main-container {
   display: flex;
   justify-content: center;

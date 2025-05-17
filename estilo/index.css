@@ -19,38 +19,6 @@ body {
     display: flex;
 }
 
-.sidebar {
-    width: 250px;
-    background-color: var(--color-menu);
-    height: 100vh;
-    position: fixed;
-    top: 0;
-    left: 0;
-    padding: 1rem;
-    transition: transform 0.3s ease-in-out;
-}
-
-.sidebar.hidden {
-    transform: translateX(-100%);
-}
-
-.sidebar h2 {
-    color: var(--color-accent);
-    margin-bottom: 2rem;
-}
-
-.sidebar a {
-    display: block;
-    color: var(--color-text);
-    text-decoration: none;
-    margin: 1rem 0;
-    transition: color 0.3s;
-}
-
-.sidebar a:hover {
-    color: var(--color-accent);
-}
-
 
 .main-content {
 
