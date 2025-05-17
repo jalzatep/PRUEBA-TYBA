@@ -1,42 +1,43 @@
-document.addEventListener("DOMContentLoaded", function() {
-  const form = document.getElementById("registroForm");
+document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('loginForm');
+    const mensajeDiv = document.getElementById('mensaje');
 
-  if (form) {
-      form.addEventListener("submit", function(event) {
-          event.preventDefault(); // Evita que el formulario se envíe automáticamente
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
 
-          const usuario = document.getElementById("usuario").value;
-          const clave = document.getElementById("clave").value;
+        const correo = document.getElementById('correo').value.trim();
+        const password = document.getElementById('password').value;
 
-          // Verificar si los campos no están vacíos
-          if (usuario === "" || clave === "") {
-              alert("Por favor, completa todos los campos.");
-              return;
-          }
+        if (!correo || !password) {
+            mostrarMensaje('Correo y contraseña son obligatorios.', 'error');
+            return;
+        }
 
-          // Crear un objeto con los datos del usuario
-          const nuevoUsuario = {
-              usuario: usuario,
-              clave: clave
-          };
+        try {
+            const response = await fetch('http://localhost:3000/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ correo, password })
+            });
 
-          // Guardar el usuario en el localStorage
-          let usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
-          usuarios.push(nuevoUsuario);
-          localStorage.setItem("usuarios", JSON.stringify(usuarios));
+            const data = await response.json();
 
-          // Verificar si el usuario y clave coinciden con los valores "PLATA" y "103021"
-          if (usuario === "PLATA" && clave === "103021") {
-              // Redirigir a admin.html
-              window.location.href = "admin.html";
-              return;
-          }
+            if (response.ok) {
+                mostrarMensaje('Inicio de sesión exitoso.', 'success');
+                window.location.href="../Views/inicio.html"
+            } else {
+                mostrarMensaje(data.error || 'Correo o contraseña incorrectos.', 'error');
+            }
+        } catch (error) {
+            console.error('Error en la solicitud:', error);
+            mostrarMensaje('Error de conexión con el servidor.', 'error');
+        }
+    });
 
-          // Mostrar mensaje de éxito
-          alert("Registro exitoso!");
-
-          // Limpiar el formulario
-          form.reset();
-      });
-  }
+    function mostrarMensaje(texto, tipo) {
+        mensajeDiv.textContent = texto;
+        mensajeDiv.className = tipo === 'success' ? 'mensaje-exito' : 'mensaje-error';
+    }
 });
