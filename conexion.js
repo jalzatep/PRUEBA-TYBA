@@ -65,12 +65,20 @@ app.post('/login', (req, res) => {
         res.json({ mensaje: 'Inicio de sesión exitoso', usuario: row });
     });
 });
- 
+
+// Cerrar Sesion
+app.post('/logout', (req, res) => {
+    res.json({ mensaje: 'Sesión cerrada exitosamente' });
+});
+
+
+
+//Buscar Restaurantes
 app.post('/restaurantes', async (req, res) => {
     const { ciudad, lat, lon } = req.body;
 
     try {
-        let latitude, longitude;
+        let latitud, longitud;
 
         if (ciudad) {
             const nominatimURL = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(ciudad)}`;
@@ -79,11 +87,11 @@ app.post('/restaurantes', async (req, res) => {
                 return res.status(404).json({ error: 'Ciudad no encontrada' });
             }
 
-            latitude = response.data[0].lat;
-            longitude = response.data[0].lon;
+            latitud = response.data[0].lat;
+            longitud = response.data[0].lon;
         } else if (lat && lon) {
-            latitude = lat;
-            longitude = lon;
+            latitud = lat;
+            longitud = lon;
         } else {
             return res.status(400).json({ error: 'Debe proporcionar una ciudad o coordenadas' });
         }
@@ -92,7 +100,7 @@ app.post('/restaurantes', async (req, res) => {
             [out:json];
             node
               ["amenity"="restaurant"]
-              (around:1000,${latitude},${longitude});
+              (around:1000,${latitud},${longitud});
             out;
         `;
 
@@ -106,7 +114,7 @@ app.post('/restaurantes', async (req, res) => {
             lon: r.lon
         }));
 
-        res.json({ ciudad: ciudad || `${latitude},${longitude}`, restaurantes });
+        res.json({ ciudad: ciudad || `${latitud},${longitud}`, restaurantes });
 
     } catch (error) {
         console.error('Error buscando restaurantes:', error.message);

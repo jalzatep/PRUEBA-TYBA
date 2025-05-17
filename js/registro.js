@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (response.ok) {
                 mostrarMensaje(data.mensaje || 'Usuario registrado correctamente.', 'success');
-                form.reset(); 
+                window.location.href = 'login.html';
             } else {
                 mostrarMensaje(data.error || 'Ocurrió un error al registrar.', 'error');
             }
