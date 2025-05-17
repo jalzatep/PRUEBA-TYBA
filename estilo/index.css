@@ -1,0 +1,348 @@
+:root {
+    --color-bg: #1a1e29;
+    --color-menu: #132d46;
+    --color-accent: #01c38e;
+    --color-text: #ffffff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    display: flex;
+}
+
+.sidebar {
+    width: 250px;
+    background-color: var(--color-menu);
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 1rem;
+    transition: transform 0.3s ease-in-out;
+}
+
+.sidebar.hidden {
+    transform: translateX(-100%);
+}
+
+.sidebar h2 {
+    color: var(--color-accent);
+    margin-bottom: 2rem;
+}
+
+.sidebar a {
+    display: block;
+    color: var(--color-text);
+    text-decoration: none;
+    margin: 1rem 0;
+    transition: color 0.3s;
+}
+
+.sidebar a:hover {
+    color: var(--color-accent);
+}
+
+.menu-toggle {
+    background-color: var(--color-accent);
+    color: var(--color-bg);
+    border: none;
+    padding: 10px 15px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    position: fixed;
+    top: 1rem;
+    left: 1rem;
+    z-index: 1001;
+    border-radius: 5px;
+}
+
+.main-content {
+    margin-left: 250px;
+    padding: 2rem;
+    width: 100%;
+    transition: margin-left 0.3s ease-in-out;
+}
+
+.sidebar.hidden + .main-content {
+    margin-left: 0;
+}
+
+.banner {
+    background-color: var(--color-accent);
+    padding: 3rem;
+    text-align: center;
+    border-radius: 15px;
+    margin-bottom: 2rem;
+    color: var(--color-bg);
+}
+
+.section {
+    margin-bottom: 2rem;
+}
+
+h2 {
+    color: var(--color-accent);
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.postulacion {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-menu);
+    border-radius: 10px;
+    padding: 1rem 2rem;
+    margin: 0 auto;
+    gap: 1.5rem;
+    width: fit-content;
+    max-width: 100%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.postulacion img {
+    max-width: 150px;
+    height: auto;
+    border-radius: 8px;
+}
+
+.postulacion-content button {
+    background-color: var(--color-accent);
+    color: var(--color-bg);
+    border: none;
+    padding: 0.6rem 1.2rem;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.postulacion-content button:hover {
+    background-color: #00a673;
+}
+
+.filter-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    margin-top: 1rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 200px;
+    min-width: 200px;
+}
+
+.form-group label {
+    margin-bottom: 0.5rem;
+    color: var(--color-accent);
+}
+
+.form-group select {
+    padding: 0.5rem;
+    border-radius: 5px;
+    border: 1px solid var(--color-accent);
+    background-color: var(--color-menu);
+    color: var(--color-text);
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+.form-group select:focus {
+    outline: none;
+    border-color: #00ffbd;
+}
+
+/* Estilo de las tarjetas */
+.tarjetas-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;  /* Alinea las tarjetas al inicio de la fila */
+    gap: 1.5rem;
+    margin-top: 1rem;
+}
+
+.tarjeta {
+    background-color: var(--color-menu);
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 200px;
+    flex: 1 1 calc(33.333% - 1.5rem);  /* Tres tarjetas por fila en pantallas grandes */
+    transition: transform 0.3s ease;
+}
+
+.tarjeta:hover {
+    transform: translateY(-5px);
+}
+
+.tarjeta p {
+    margin-bottom: 0.8rem;
+    color: black;
+}
+
+.btn-ver {
+    align-self: center;  /* Centra el botón */
+    background-color: var(--color-accent);
+    color: var(--color-bg);
+    border: none;
+    padding: 0.6rem 1.2rem;
+    font-size: 0.95rem;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    margin-top: auto;  /* Empuja el botón hacia abajo */
+}
+
+.btn-ver:hover {
+    background-color: #00a673;
+}
+
+/* Medios para pantallas más pequeñas */
+
+/* Pantallas medianas (hasta 768px) */
+@media (max-width: 768px) {
+    .main-content {
+        margin-left: 0;
+        padding-top: 4rem;
+    }
+
+    .postulacion {
+        flex-direction: column;
+    }
+
+    .postulacion img,
+    .postulacion-content {
+        width: 100%;
+    }
+
+    .tarjeta {
+        flex: 1 1 calc(50% - 1.5rem); /* Dos tarjetas por fila en pantallas medianas */
+    }
+}
+
+/* Pantallas muy pequeñas (hasta 480px) */
+@media (max-width: 480px) {
+    .tarjeta {
+        flex: 1 1 100%;  /* Una tarjeta por fila en pantallas pequeñas */
+    }
+}
+
+/* Contenedor de las empresas (empresas) */
+#empresas {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.tarjeta {
+    background-color: #ffffff;
+    color: #1a1e29;
+    padding: 20px;
+    border-radius: 10px;
+    width: 200px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+button.btn-eliminar {
+    background-color: #e74c3c;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 0.8em;
+}
+
+button.btn-eliminar:hover {
+    background-color: #c0392b;
+}
+
+#mensaje {
+    margin-top: 20px;
+    padding: 10px;
+    text-align: center;
+    border-radius: 5px;
+}
+
+
+#productoForm button {
+    padding: 10px;
+    font-size: 1em;
+    background-color: #01c38e;
+    color: #1a1e29;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+#productoForm button:hover {
+    background-color: #019d72;
+}
+
+/* Contenedor de tarjetas (tarjetas-container) */
+.tarjetas-container {
+    margin-top: 30px;
+}
+
+/* Contenedor de las empresas (empresas) */
+#empresas {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+/* Estilos de las tarjetas */
+.card {
+    width: 280px;
+    background-color: #ffffff;
+    color: #1a1e29;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.card h3 {
+    margin-bottom: 10px;
+    color: #132d46;
+}
+
+.card p {
+    font-size: 0.9em;
+    margin-bottom: 8px;
+}
+
+.card button {
+    background-color: #01c38e;
+    color: #1a1e29;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    font-size: 0.9em;
+}
+
+.card button:hover {
+    background-color: #019d72;
+}

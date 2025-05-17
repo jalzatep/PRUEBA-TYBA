@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrar Empresas</title>
+    <link rel="stylesheet" href="../estilo/registrarse.css">
+</head>
+<body>
+
+    <nav> 
+        <ul class="menu-horizontal">
+            <li><a href="../index.html" id="selector">Regresar</a></li>
+        </ul> 
+    </nav>
+
+    <h1 class="texto">FORMULARIO USUARIOS</h1>
+    
+    <!-- Formulario -->
+    <form id="productoForm">
+        <div class="form-group">
+            <input type="text" id="nit" required>
+            <label for="nit">Cédula</label>
+        </div>
+        
+        <div class="form-group">
+            <input type="text" id="nombre" required>
+            <label for="nombre">Nombre Completo</label>
+        </div>
+        
+        <div class="form-group">
+            <input type="text" id="telefono">
+            <label for="telefono">Telefono</label>
+        </div>
+
+        <div class="form-group">
+            <input type="text" id="correo">
+            <label for="correo">Correo</label>
+        </div>
+        
+        <div class="form-group">
+            <input type="text" id="cuidad">
+            <label for="ciudad">Ciudad</label>
+        </div>
+        
+        <div class="form-group">
+            <input type="password" id="password">
+            <label for="ciudad">Contraseña</label>
+        </div>
+
+        <button id="submitButton">Registrar</button>
+
+
+
+    </form>
+
+    <!-- Mensaje -->
+    <div id="mensaje"></div>
+
+    <!-- Contenedor de tarjetas -->
+    <div id="tarjetas-container" class="tarjetas-container">
+        <div id="empresas"></div>
+    </div>
+
+    <!-- Contador -->
+    <div id="cantidad-empresas-añadidas"></div>
+
+    <script src="js/admin.js"></script>
+</body>
+</html>

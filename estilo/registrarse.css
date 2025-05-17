@@ -1,0 +1,273 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #132d46;
+    margin: 0;
+    padding: 20px;
+    color: #ffffff;
+}
+
+#productoForm {
+    display: flex;
+    flex-direction: column;
+    max-width: 400px;
+    margin: auto;
+    gap: 15px;
+    padding: 20px;
+    background-color: #ffffff;
+    color: #1a1e29;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+}
+
+.form-group {
+    position: relative;
+    margin-bottom: 15px;
+}
+
+input {
+    padding: 10px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+label {
+    position: absolute;
+    left: 15px;
+    top: 10px;
+    font-size: 1em;
+    color: #132d46;
+    transition: 0.3s ease all;
+    pointer-events: none;
+}
+
+input:focus {
+    outline: none;
+    border-color: #01c38e;
+}
+
+input:focus + label,
+input:not(:placeholder-shown) + label {
+    top: -20px;
+    left: 15px;body {
+    font-family: Arial, sans-serif;
+    background-color: #132d46;
+    margin: 0;
+    padding: 20px;
+    color: #ffffff;
+}
+
+#productoForm {
+    display: flex;
+    flex-direction: column;
+    max-width: 400px;
+    margin: auto;
+    gap: 15px;
+    padding: 20px;
+    background-color: #ffffff;
+    color: #1a1e29;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+}
+
+.form-group {
+    position: relative;
+    margin-bottom: 15px;
+}
+
+input {
+    padding: 10px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+label {
+    position: absolute;
+    left: 15px;
+    top: 10px;
+    font-size: 1em;
+    color: #132d46;
+    transition: 0.3s ease all;
+    pointer-events: none;
+}
+
+input:focus {
+    outline: none;
+    border-color: #01c38e;
+}
+
+input:focus + label,
+input:not(:placeholder-shown) + label {
+    top: -20px;
+    left: 15px;
+    font-size: 0.8em;
+    color: black;
+}
+
+#productoForm button {
+    padding: 10px;
+    font-size: 1em;
+    background-color: #01c38e;
+    color: #1a1e29;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+#productoForm button:hover {
+    background-color: #019d72;
+}
+
+/* Contenedor de tarjetas (tarjetas-container) */
+.tarjetas-container {
+    margin-top: 30px;
+}
+
+/* Contenedor de las empresas (empresas) */
+#empresas {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.tarjeta {
+    background-color: #ffffff;
+    color: #1a1e29;
+    padding: 20px;
+    border-radius: 10px;
+    width: 200px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+button.btn-eliminar {
+    background-color: #e74c3c;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 0.8em;
+}
+
+button.btn-eliminar:hover {
+    background-color: #c0392b;
+}
+
+#mensaje {
+    margin-top: 20px;
+    padding: 10px;
+    text-align: center;
+    border-radius: 5px;
+}
+
+    font-size: 0.8em;
+    color: black;
+}
+
+#productoForm button {
+    padding: 10px;
+    font-size: 1em;
+    background-color: #01c38e;
+    color: #1a1e29;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+#productoForm button:hover {
+    background-color: #019d72;
+}
+
+/* Contenedor de tarjetas (tarjetas-container) */
+.tarjetas-container {
+    margin-top: 30px;
+}
+
+/* Contenedor de las empresas (empresas) */
+#empresas {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+/* Estilos de las tarjetas */
+.card {
+    width: 280px;
+    background-color: #ffffff;
+    color: #1a1e29;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.card h3 {
+    margin-bottom: 10px;
+    color: #132d46;
+}
+
+.card p {
+    font-size: 0.9em;
+    margin-bottom: 8px;
+}
+
+.card button {
+    background-color: #01c38e;
+    color: #1a1e29;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    font-size: 0.9em;
+}
+
+.card button:hover {
+    background-color: #019d72;
+}
+
+.menu-horizontal {
+    background: #1a1e29;
+    display: flex;
+    align-items: center;
+    height: 80px;
+    list-style: none;
+}
+
+.menu-horizontal > li a {
+    display: block;
+    text-decoration: none;
+    float: left;
+}
+
+#selector {
+    margin-left: 15px;
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+    padding: 7px 13px;
+    border-radius: 3px;
+    text-transform: uppercase;
+    transition: .5s;
+}
+
+#selector:hover {
+    background: #434343;
+    color: wheat;
+}
+
+.texto {
+    text-align: center;
+}
