@@ -1,15 +1,15 @@
 const express = require('express');
 const sqlite3 = require('sqlite3');
 const cors = require('cors');
+const axios = require('axios');
 
 const app = express();
 const db = new sqlite3.Database('./tyba.db');
 
-
 app.use(cors());
-app.use(express.json()); 
+app.use(express.json());
 
-
+// Obtener todos los usuarios
 app.get('/usuario', (req, res) => {
     const sql = 'SELECT * FROM usuario';
     db.all(sql, [], (err, rows) => {
@@ -21,9 +21,9 @@ app.get('/usuario', (req, res) => {
     });
 });
 
+// Registro de usuario
 app.post('/usuario', (req, res) => {
     const { cedula, nombreCompleto, telefono, correo, ciudad, password } = req.body;
-
 
     if (!cedula || !nombreCompleto || !telefono || !correo || !ciudad || !password) {
         return res.status(400).json({ error: 'Todos los campos son obligatorios' });
@@ -43,7 +43,7 @@ app.post('/usuario', (req, res) => {
     });
 });
 
-//inicio de sesión
+// Inicio de sesión
 app.post('/login', (req, res) => {
     const { correo, password } = req.body;
 
@@ -65,7 +65,54 @@ app.post('/login', (req, res) => {
         res.json({ mensaje: 'Inicio de sesión exitoso', usuario: row });
     });
 });
+ 
+app.post('/restaurantes', async (req, res) => {
+    const { ciudad, lat, lon } = req.body;
 
+    try {
+        let latitude, longitude;
+
+        if (ciudad) {
+            const nominatimURL = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(ciudad)}`;
+            const response = await axios.get(nominatimURL);
+            if (response.data.length === 0) {
+                return res.status(404).json({ error: 'Ciudad no encontrada' });
+            }
+
+            latitude = response.data[0].lat;
+            longitude = response.data[0].lon;
+        } else if (lat && lon) {
+            latitude = lat;
+            longitude = lon;
+        } else {
+            return res.status(400).json({ error: 'Debe proporcionar una ciudad o coordenadas' });
+        }
+
+        const query = `
+            [out:json];
+            node
+              ["amenity"="restaurant"]
+              (around:1000,${latitude},${longitude});
+            out;
+        `;
+
+        const overpassResponse = await axios.post('https://overpass-api.de/api/interpreter', query, {
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+        });
+
+        const restaurantes = overpassResponse.data.elements.map(r => ({
+            nombre: r.tags.name || 'Restaurante sin nombre',
+            lat: r.lat,
+            lon: r.lon
+        }));
+
+        res.json({ ciudad: ciudad || `${latitude},${longitude}`, restaurantes });
+
+    } catch (error) {
+        console.error('Error buscando restaurantes:', error.message);
+        res.status(500).json({ error: 'Error al buscar restaurantes' });
+    }
+});
 
 // Iniciar el servidor
 const PORT = 3000;

@@ -4,12 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="../estilo/index.css"> 
+  
   <title>Mi Sitio Web</title>
 </head>
 <body>
- 
 
-  <!-- Contenido principal -->
   <div class="main-content" id="mainContent">
     <div class="banner">
       <h1>TYBA</h1>
@@ -17,33 +16,65 @@
     </div>
 
     <div class="section">
-      <p>Eligue tu cuidad y te enseñaré que lugar esta cerca para disfrutes una rica comida!</p>
+      <p>Elige tu ciudad y te enseñaré qué lugares están cerca para disfrutar una rica comida.</p>
     </div>
-
-
 
     <div class="section">
       <h2>Filtrar Búsqueda</h2>
-      <form class="filter-form">
-        
-
+      <label for="ciudad">Ciudad</label>
+      <form class="filter-form" id="formCiudad">
         <div class="form-group">
-          <label for="ciudad">Ciudad:</label>
+          
           <select id="ciudad">
-            <option value="">Seleccione una ciudad</option>
-            <option value="medellin">Medellín</option>
-            <option value="bogota">Bogotá</option>
-            <option value="cali">Cali</option>
+            <option value="">Seleccone una ciudad</option>
+                                            <option value="Arauca">Arauca</option>
+                                            <option value="Armenia">Armenia</option>
+                                            <option value="Barranquilla">Barranquilla</option>
+                                            <option value="Bogotá">Bogotá</option>
+                                            <option value="Bucaramanga">Bucaramanga</option>
+                                            <option value="Cali">Cali</option>
+                                            <option value="Cartagena">Cartagena</option>
+                                            <option value="Cúcuta">Cúcuta</option>
+                                            <option value="Florencia">Florencia</option>
+                                            <option value="Ibagué">Ibagué</option>
+                                            <option value="Leticia">Leticia</option>
+                                            <option value="Manizales">Manizales</option>
+                                            <option value="Medellín">Medellín</option>
+                                            <option value="Mitú">Mitú</option>
+                                            <option value="Mocoa">Mocoa</option>
+                                            <option value="Montería">Montería</option>
+                                            <option value="Neiva">Neiva</option>
+                                            <option value="Pasto">Pasto</option>
+                                            <option value="Pereira">Pereira</option>
+                                            <option value="Popayán">Popayán</option>
+                                            <option value="Puerto Carreño">Puerto Carreño</option>
+                                            <option value="Puerto Inírida">Puerto Inírida</option>
+                                            <option value="Quibdó">Quibdó</option>
+                                            <option value="Riohacha">Riohacha</option>
+                                            <option value="San Andrés">San Andrés</option>
+                                            <option value="San José del Guaviare">San José del Guaviare</option>
+                                            <option value="Santa Marta">Santa Marta</option>
+                                            <option value="Sincelejo">Sincelejo</option>
+                                            <option value="Tunja">Tunja</option>
+                                            <option value="Valledupar">Valledupar</option>
+                                            <option value="Villavicencio">Villavicencio</option>
+                                            <option value="Yopal">Yopal</option>
           </select>
         </div>
-
-       
-      
+        
+        <div class="postulacion-contents">
+          <button type="submit">Buscar</button>
+        </div>
       </form>
+      
     </div>
 
-   
+    <div class="section">
+      <h3>Resultados:</h3>
+      <ul id="resultados"></ul>
+    </div>
+  </div>
 
-  <script src="./js/principal.js"></script>
+  <script src="../js/inicio.js"></script>
 </body>
 </html>

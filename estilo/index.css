@@ -6,6 +6,7 @@
 }
 
 * {
+    text-align: center;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -65,7 +66,7 @@ body {
 }
 
 .main-content {
-    margin-left: 250px;
+
     padding: 2rem;
     width: 100%;
     transition: margin-left 0.3s ease-in-out;
@@ -124,6 +125,21 @@ h2 {
     cursor: pointer;
     transition: background-color 0.3s;
 }
+.postulacion-contents button {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-content:center;
+    align-self: center;
+    background-color: var(--color-accent);
+    color: var(--color-bg);
+    border: none;
+    padding: 0.6rem 1.2rem;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
 
 .postulacion-content button:hover {
     background-color: #00a673;
@@ -138,7 +154,7 @@ h2 {
 
 .form-group {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     flex: 1 1 200px;
     min-width: 200px;
 }
@@ -149,6 +165,7 @@ h2 {
 }
 
 .form-group select {
+    width: 100%;
     padding: 0.5rem;
     border-radius: 5px;
     border: 1px solid var(--color-accent);
