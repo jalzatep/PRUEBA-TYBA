@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Realizar Transacción</title>
+  <link rel="stylesheet" href="../estilo/registrarse.css" />
+</head>
+<body>
+  <div class="volver-container">
+    <a href="inicio.html" class="volver-button">Volver</a>
+  </div>
+
+  <h1 class="texto">Realizar Transacción</h1>
+
+  <form id="TransaccionForm">
+    <div class="form-group">
+      <input type="text" id="nombre" required placeholder="Nombre de quien recibe" />
+    </div>
+    <div class="form-group">
+      <input type="text" id="cedula" required placeholder="Documento de esa persona" />
+    </div>
+    <div class="form-group">
+      <input type="text" id="banco" required placeholder="Banco" />
+    </div>
+    <div class="form-group">
+      <input type="text" id="n_cuenta" required placeholder="Número de cuenta" />
+    </div>
+    <div class="form-group">
+      <input type="text" id="tipo_cuenta" required placeholder="Tipo de cuenta" />
+    </div>
+    <div class="form-group">
+      <input type="number" id="valor" required placeholder="Valor" />
+    </div>
+    <button type="submit" id="submitButton">Transferir</button>
+  </form>
+
+  <div id="mensaje"></div>
+
+  <h2>Historial de Transacciones</h2>
+  <ul id="listaTransacciones"></ul>
+
+  <script src="../js/transaccion.js"></script>
+</body>
+</html>

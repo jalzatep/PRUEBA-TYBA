@@ -9,16 +9,16 @@ const db = new sqlite3.Database('./tyba.db');
 app.use(cors());
 app.use(express.json());
 
-// Obtener todos los usuarios
-app.get('/usuario', (req, res) => {
-    const sql = 'SELECT * FROM usuario';
-    db.all(sql, [], (err, rows) => {
-        if (err) {
-            console.error('Error al obtener usuarios:', err.message);
-            return res.status(500).json({ error: 'Error al obtener usuarios' });
-        }
-        res.json(rows);
-    });
+// Obtener todos las transacciones
+app.get('/listadoTransacciones', (req, res) => {
+  const sql = 'SELECT * FROM transaccion';
+  db.all(sql, [], (err, rows) => {
+    if (err) {
+      console.error('Error al obtener transacciones:', err.message);
+      return res.status(500).json({ error: 'Error al obtener transacciones' });
+    }
+    res.json(rows);
+  });
 });
 
 // Registro de usuario
@@ -120,6 +120,30 @@ app.post('/restaurantes', async (req, res) => {
         console.error('Error buscando restaurantes:', error.message);
         res.status(500).json({ error: 'Error al buscar restaurantes' });
     }
+});
+
+// Registro transacción
+app.post('/transaccion', (req, res) => {
+    const {nombre, cedula, banco, n_cuenta, tipo_cuenta, valor } = req.body;
+
+    if (!nombre || !cedula || !banco || !n_cuenta || !tipo_cuenta || !valor) {
+        return res.status(400).json({ error: 'Todos los campos son obligatorios' });
+    }
+
+    const sql = `
+        INSERT INTO transaccion (nombre, cedula, banco, n_cuenta, tipo_cuenta, valor)
+        VALUES (?, ?, ?, ?, ?, ?)
+    `;
+
+    db.run(sql, [nombre, cedula, banco, n_cuenta, tipo_cuenta, valor], function(err) {
+        if (err) {
+            console.error('Error al añadir el usuario:', err.message);
+            return res.status(500).json({ error: 'Error al realizar transacción' });
+        }
+        console.log("ID insertado: ", this.lastID);
+
+        res.status(201).json({ mensaje: 'Envio realizado correctamente', id: this.lastID });
+    });
 });
 
 // Iniciar el servidor
