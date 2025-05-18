@@ -4,12 +4,58 @@ const cors = require('cors');
 const axios = require('axios');
 
 const app = express();
-const db = new sqlite3.Database('./tyba.db');
+const db = new sqlite3.Database('./tyba.db');// Conexión a la base de datos SQLite
+const path = require('path');
 
+// Servir archivos estáticos desde la carpeta 'Views'
+app.use(express.static(path.join(__dirname, 'Views')));
+
+// Habilitar CORS para permitir solicitudes
 app.use(cors());
+
+// Permitir recibir datos en formato JSON
 app.use(express.json());
 
-// Obtener todos las transacciones
+// Ruta principal
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'Views', 'index.html'));
+});
+
+// Registro transacción
+app.post('/transaccion', (req, res) => {
+    const {
+        nombre,
+        cedulaDestino,
+        banco,
+        n_cuenta,
+        tipo_cuenta,
+        valor,
+        cedulaUsuario
+    } = req.body;
+
+    if (!nombre || !cedulaDestino || !banco || !n_cuenta || !tipo_cuenta || !valor || !cedulaUsuario) {
+        return res.status(400).json({ error: 'Faltan campos obligatorios.' });
+    }
+
+    const sql = `
+        INSERT INTO transaccion (nombre, cedulaDestino, banco, n_cuenta, tipo_cuenta, valor, cedulaUsuario)
+        VALUES (?, ?, ?, ?, ?, ?, ?)
+    `;
+
+    db.run(sql, [nombre, cedulaDestino, banco, n_cuenta, tipo_cuenta, valor, cedulaUsuario], function(err) {
+        if (err) {
+            console.error("Error al insertar transacción:", err.message);
+            return res.status(500).json({ error: 'Error al registrar transacción' });
+        }
+
+        res.status(201).json({
+            mensaje: 'Transacción registrada con éxito',
+            id: this.lastID
+        });
+    });
+});
+
+// Obtener todos las transacciones por usuario
 app.get('/listadoTransacciones', (req, res) => {
     const { cedulaUsuario } = req.query;
 
@@ -21,14 +67,13 @@ app.get('/listadoTransacciones', (req, res) => {
 
     db.all(sql, [cedulaUsuario], (err, rows) => {
         if (err) {
-            console.error("❌ Error al obtener transacciones:", err.message);
+            console.error("Error al obtener transacciones:", err.message);
             return res.status(500).json({ error: 'Error al obtener transacciones' });
         }
 
         res.json(rows);
     });
 });
-
 
 // Registro de usuario
 app.post('/usuario', (req, res) => {
@@ -130,41 +175,6 @@ app.post('/restaurantes', async (req, res) => {
         res.status(500).json({ error: 'Error al buscar restaurantes' });
     }
 });
-
-// Registro transacción
-app.post('/transaccion', (req, res) => {
-    const {
-        nombre,
-        cedulaDestino,
-        banco,
-        n_cuenta,
-        tipo_cuenta,
-        valor,
-        cedulaUsuario
-    } = req.body;
-
-    if (!nombre || !cedulaDestino || !banco || !n_cuenta || !tipo_cuenta || !valor || !cedulaUsuario) {
-        return res.status(400).json({ error: 'Faltan campos obligatorios.' });
-    }
-
-    const sql = `
-        INSERT INTO transaccion (nombre, cedulaDestino, banco, n_cuenta, tipo_cuenta, valor, cedulaUsuario)
-        VALUES (?, ?, ?, ?, ?, ?, ?)
-    `;
-
-    db.run(sql, [nombre, cedulaDestino, banco, n_cuenta, tipo_cuenta, valor, cedulaUsuario], function(err) {
-        if (err) {
-            console.error("❌ Error al insertar transacción:", err.message);
-            return res.status(500).json({ error: 'Error al registrar transacción' });
-        }
-
-        res.status(201).json({
-            mensaje: 'Transacción registrada con éxito',
-            id: this.lastID
-        });
-    });
-});
-
 
 // Iniciar el servidor
 const PORT = 3000;

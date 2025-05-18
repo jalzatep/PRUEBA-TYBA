@@ -1,7 +1,8 @@
+//Contenido del DOM 
 document.addEventListener('DOMContentLoaded', () => {
-  const form = document.getElementById('TransaccionForm');
-  const mensajeDiv = document.getElementById('mensaje');
-  const lista = document.getElementById('listaTransacciones');
+  const form = document.getElementById('TransaccionForm');//formulario
+  const mensajeDiv = document.getElementById('mensaje');//mensaje
+  const lista = document.getElementById('listaTransacciones');//todas las transacciones por usuario
 
   // Mostrar mensaje en pantalla
   function mostrarMensaje(texto, tipo) {
@@ -11,19 +12,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Cargar historial de transacciones por cedulaUsuario desde localStorage
   async function cargarTransacciones() {
-    const cedulaUsuario = localStorage.getItem('cedula');
+    const cedulaUsuario = localStorage.getItem('cedula');//dato guardado en el localstorage 
 
     if (!cedulaUsuario) {
+      //comprobación de busqueda de la cédula del usuario
       mostrarMensaje('No se encontró la cédula del usuario. Asegúrate de haber iniciado sesión.', 'error');
       return;
     }
 
     try {
+      // Solicitud de las transacciones del usuario
       const res = await fetch(`http://localhost:3000/listadoTransacciones?cedulaUsuario=${cedulaUsuario}`);
       const transacciones = await res.json();
 
-      lista.innerHTML = '';
-
+      lista.innerHTML = '';//limpia la lista actual
+       //Recorrido de busqueda de todas las transacciones
       if (!Array.isArray(transacciones) || transacciones.length === 0) {
         lista.innerHTML = '<li>No hay transacciones registradas.</li>';
         return;
@@ -31,11 +34,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
       transacciones.forEach(tx => {
         const li = document.createElement('li');
+        //Formato para mostar las transacciones
         li.innerHTML = `
           <strong>${tx.nombre}</strong> | ${tx.banco} - ${tx.tipo_cuenta}<br>
           Numero de cuenta: ${tx.n_cuenta} → <strong>$${parseFloat(tx.valor).toFixed(2)}</strong>
         `;
-        lista.appendChild(li);
+        lista.appendChild(li);//se agrega la transacción a la lista
       });
 
     } catch (err) {
@@ -44,13 +48,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Ejecutar carga inicial
+ // Carga inicial del historial de transacciones
   cargarTransacciones();
 
   // Enviar formulario
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
-
+    //datos capturados del formulario
     const nombre = document.getElementById('nombre').value.trim();
     const cedulaDestino = document.getElementById('cedulaDestino').value.trim();
     const banco = document.getElementById('banco').value.trim();
@@ -66,6 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     try {
+      //Solicitud Post
       const response = await fetch('http://localhost:3000/transaccion', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -83,14 +88,17 @@ document.addEventListener('DOMContentLoaded', () => {
       const data = await response.json();
 
       if (response.ok) {
+        //Transacción exitosa
         mostrarMensaje(data.mensaje || 'Transacción registrada con éxito.', 'success');
         form.reset();
         cargarTransacciones();
       } else {
+        // Si ocurrio algún error
         mostrarMensaje(data.error || 'Error al registrar transacción.', 'error');
       }
 
     } catch (error) {
+      //Problema de red
       console.error('Error en la solicitud:', error);
       mostrarMensaje('Error de red o servidor.', 'error');
     }

@@ -4,7 +4,7 @@
     --color-accent: #01c38e;
     --color-text: #ffffff;
 }
-
+/*Estilos por defecto*/
 * {
     text-align: center;
     margin: 0;
@@ -19,9 +19,8 @@ body {
     display: flex;
 }
 
-
+/*Contenedor main*/
 .main-content {
-
     padding: 2rem;
     width: 100%;
     transition: margin-left 0.3s ease-in-out;
@@ -49,7 +48,7 @@ h2 {
     margin-bottom: 1rem;
     text-align: center;
 }
-
+/*Sesion con botones ya sea para loguearse o registrarse*/
 .postulacion {
     display: flex;
     align-items: center;
@@ -63,7 +62,7 @@ h2 {
     max-width: 100%;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
-
+/*iconos que acompañen los botones*/
 .postulacion img {
     max-width: 150px;
     height: auto;
@@ -96,6 +95,7 @@ h2 {
     transition: background-color 0.3s;
 }
 
+/*evento hover para botones*/
 .postulacion-content button:hover {
     background-color: #00a673;
 }
@@ -122,7 +122,7 @@ h2 {
     position: absolute;
     right: 55px;
 }
-
+/*boton cerrar sesion*/
 #btnCerrar{
     background-color: darkseagreen;
       height: 100%;
@@ -151,39 +151,8 @@ h2 {
     outline: none;
     border-color: #00ffbd;
 }
- 
 
-.btn-ver {
-    align-self: center;   
-    background-color: var(--color-accent);
-    color: var(--color-bg);
-    border: none;
-    padding: 0.6rem 1.2rem;
-    font-size: 0.95rem;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: background-color 0.3s;
-    margin-top: auto;  
-}
-
-.btn-ver:hover {
-    background-color: #00a673;
-}
-
-button.btn-eliminar {
-    background-color: #e74c3c;
-    color: #fff;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-    border-radius: 5px;
-    font-size: 0.8em;
-}
-
-button.btn-eliminar:hover {
-    background-color: #c0392b;
-}
-
+/*mensajes para los endpoint*/
 #mensaje {
     margin-top: 20px;
     padding: 10px;
@@ -191,7 +160,7 @@ button.btn-eliminar:hover {
     border-radius: 5px;
 }
 
-
+/*boton para mandar formulario*/
 #productoForm button {
     padding: 10px;
     font-size: 1em;
@@ -202,7 +171,7 @@ button.btn-eliminar:hover {
     cursor: pointer;
     font-weight: bold;
 }
-
+/*evento hover*/
 #productoForm button:hover {
     background-color: #019d72;
 }

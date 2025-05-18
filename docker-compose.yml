@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  app:
+    container_name: node_app
+    build:
+      context: .
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./tyba.db:/app/tyba.db  # Monta solo la base de datos
+    restart: always
+    platform: linux/amd64  # Necesario en Windows con Docker Desktop y WSL2
