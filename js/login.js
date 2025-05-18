@@ -26,6 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (response.ok) {
                 mostrarMensaje('Inicio de sesión exitoso.', 'success');
+                  localStorage.setItem('cedula',data.usuario.cedula )
                   localStorage.setItem('usuarioNombre', data.usuario.nombreCompleto); 
                 window.location.href="../Views/inicio.html"
             } else {

@@ -11,15 +11,24 @@ app.use(express.json());
 
 // Obtener todos las transacciones
 app.get('/listadoTransacciones', (req, res) => {
-  const sql = 'SELECT * FROM transaccion';
-  db.all(sql, [], (err, rows) => {
-    if (err) {
-      console.error('Error al obtener transacciones:', err.message);
-      return res.status(500).json({ error: 'Error al obtener transacciones' });
+    const { cedulaUsuario } = req.query;
+
+    if (!cedulaUsuario) {
+        return res.status(400).json({ error: 'Falta el parámetro cedulaUsuario' });
     }
-    res.json(rows);
-  });
+
+    const sql = `SELECT * FROM transaccion WHERE cedulaUsuario = ? ORDER BY id DESC`;
+
+    db.all(sql, [cedulaUsuario], (err, rows) => {
+        if (err) {
+            console.error("❌ Error al obtener transacciones:", err.message);
+            return res.status(500).json({ error: 'Error al obtener transacciones' });
+        }
+
+        res.json(rows);
+    });
 });
+
 
 // Registro de usuario
 app.post('/usuario', (req, res) => {
@@ -124,27 +133,38 @@ app.post('/restaurantes', async (req, res) => {
 
 // Registro transacción
 app.post('/transaccion', (req, res) => {
-    const {nombre, cedula, banco, n_cuenta, tipo_cuenta, valor } = req.body;
+    const {
+        nombre,
+        cedulaDestino,
+        banco,
+        n_cuenta,
+        tipo_cuenta,
+        valor,
+        cedulaUsuario
+    } = req.body;
 
-    if (!nombre || !cedula || !banco || !n_cuenta || !tipo_cuenta || !valor) {
-        return res.status(400).json({ error: 'Todos los campos son obligatorios' });
+    if (!nombre || !cedulaDestino || !banco || !n_cuenta || !tipo_cuenta || !valor || !cedulaUsuario) {
+        return res.status(400).json({ error: 'Faltan campos obligatorios.' });
     }
 
     const sql = `
-        INSERT INTO transaccion (nombre, cedula, banco, n_cuenta, tipo_cuenta, valor)
-        VALUES (?, ?, ?, ?, ?, ?)
+        INSERT INTO transaccion (nombre, cedulaDestino, banco, n_cuenta, tipo_cuenta, valor, cedulaUsuario)
+        VALUES (?, ?, ?, ?, ?, ?, ?)
     `;
 
-    db.run(sql, [nombre, cedula, banco, n_cuenta, tipo_cuenta, valor], function(err) {
+    db.run(sql, [nombre, cedulaDestino, banco, n_cuenta, tipo_cuenta, valor, cedulaUsuario], function(err) {
         if (err) {
-            console.error('Error al añadir el usuario:', err.message);
-            return res.status(500).json({ error: 'Error al realizar transacción' });
+            console.error("❌ Error al insertar transacción:", err.message);
+            return res.status(500).json({ error: 'Error al registrar transacción' });
         }
-        console.log("ID insertado: ", this.lastID);
 
-        res.status(201).json({ mensaje: 'Envio realizado correctamente', id: this.lastID });
+        res.status(201).json({
+            mensaje: 'Transacción registrada con éxito',
+            id: this.lastID
+        });
     });
 });
+
 
 // Iniciar el servidor
 const PORT = 3000;
